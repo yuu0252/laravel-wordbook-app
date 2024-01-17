@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 
-class Book extends Model
+class Word extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'description'
+        'english',
+        'japanese',
+        'memo'
     ];
 
-    public function user()
+    public function Book()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function words()
-    {
-        return $this->hasMany(Word::class);
+        return $this->belongsTo(Book::class);
     }
 }
