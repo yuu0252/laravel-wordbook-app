@@ -18,11 +18,13 @@
         @csrf
         <div class="col-md-4">
             <label for="validationDefault01" class="form-label">タイトル</label>
-            <input type="text" class="form-control" id="validationDefault01" name="title" required>
+            <input type="text" class="form-control" id="validationDefault01" name="title" value="{{ old('title') }}"
+                required>
         </div>
         <div class="col-md-4">
             <label for="validationDefault02" class="form-label">このブックについて</label>
-            <textarea type="text" class="form-control" id="validationDefault02" name="description" required></textarea>
+            <textarea type="text" class="form-control" id="validationDefault02" name="description"
+                value="{{ old('description') }}" required></textarea>
         </div>
         <div class="col-12">
             <button class="btn btn-primary" type="submit">作成</button>
