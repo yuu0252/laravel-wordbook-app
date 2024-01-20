@@ -18,9 +18,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        $words = Book::where('user_id', \Auth::user()->id)->get();
-
-        return view('books.show', compact('words'));
+        return view('books.show', compact('book'));
     }
 
     public function create()
