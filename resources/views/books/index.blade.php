@@ -9,6 +9,10 @@
         <p>{{ session('flash_message') }}</p>
     @endif
 
+    @if (session('error_message'))
+        <p>{{ session('error_message') }}</p>
+    @endif
+
     <a href="{{ route('books.create') }}">新規作成</a>
 
     @if ($books->isNotEmpty())
