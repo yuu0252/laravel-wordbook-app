@@ -21,7 +21,14 @@
                 <h2>{{ $book->title }}</h2>
                 <p>{{ $book->description }}</p>
                 <a href="{{ route('books.show', $book) }}">詳細</a>
-                <a href="{{route('books.edit', $book)}}">編集</a>
+                <a href="{{ route('books.edit', $book) }}">編集</a>
+
+                <form action="{{ route('books.destroy', $book) }}" method="POST"
+                    onsubmit="return confirm('本当に削除してもよろしいですか？');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">削除</button>
+                </form>
             </article>
         @endforeach
     @else

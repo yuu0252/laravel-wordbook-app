@@ -58,4 +58,15 @@ class BookController extends Controller
 
         return redirect()->route('books.show', $book)->with('flash_message', 'ブックを編集しました。');
     }
+
+    public function destroy(Book $book)
+    {
+        if ($book->user_id !== Auth::id()) {
+            return redirect()->route('books.index')->with('error_message', '不正なアクセスです。');
+        }
+
+        $book->delete();
+
+        return redirect()->route('books.index')->with('flash_message', 'ブックを削除しました。');
+    }
 }

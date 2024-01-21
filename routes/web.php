@@ -31,9 +31,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/books', [BookController::class, 'index'])->middleware(['auth', 'verified'])->name('books.index');
-Route::get('/books/create', [BookController::class, 'create'])->middleware(['auth', 'verified'])->name('books.create');
-Route::post('/books', [BookController::class, 'store'])->middleware(['auth', 'verified'])->name('books.store');
-Route::get('/books/{book}', [BookController::class, 'show'])->middleware(['auth', 'verified'])->name('books.show');
-Route::get('/books/{book}/edit', [BookController::class, 'edit'])->middleware(['auth', 'verified'])->name('books.edit');
-Route::patch('/books/{book}', [BookController::class, 'update'])->middleware(['auth', 'verified'])->name('books.update');
+// Route::get('/books', [BookController::class, 'index'])->middleware(['auth', 'verified'])->name('books.index');
+// Route::get('/books/create', [BookController::class, 'create'])->middleware(['auth', 'verified'])->name('books.create');
+// Route::post('/books', [BookController::class, 'store'])->middleware(['auth', 'verified'])->name('books.store');
+// Route::get('/books/{book}', [BookController::class, 'show'])->middleware(['auth', 'verified'])->name('books.show');
+// Route::get('/books/{book}/edit', [BookController::class, 'edit'])->middleware(['auth', 'verified'])->name('books.edit');
+// Route::patch('/books/{book}', [BookController::class, 'update'])->middleware(['auth', 'verified'])->name('books.update');
+// Route::delete('/books/{book}', [BookController::class, 'destroy'])->middleware(['auth', 'verified'])->name('books.destroy');
+
+Route::resource('books', BookController::class)->middleware(['auth', 'verified']);

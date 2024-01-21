@@ -191,4 +191,41 @@ class BookTest extends TestCase
         $this->assertDatabaseHas('books', $new_book);
         $response->assertRedirect(route('books.show', $old_book));
     }
+
+    // ログインしていないユーザはブックを削除できない
+    public function test_guest_cannot_delete_book()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create(['user_id' => $user->id]);
+
+        $response = $this->delete(route('books.destroy', $book));
+
+        $this->assertDatabaseHas('books', ['id' => $book->id]);
+        $response->assertRedirect('login');
+    }
+
+    // ログインユーザは他のユーザのブックを削除出来ない
+    public function test_user_cannot_delete_others_book()
+    {
+        $user = User::factory()->create();
+        $other_user = User::factory()->create();
+        $others_book = Book::factory()->create(['user_id' => $other_user->id]);
+
+        $response = $this->actingAs($user)->delete(route('books.destroy', $others_book));
+
+        $this->assertDatabaseHas('books', ['id' => $others_book->id]);
+        $response->assertRedirect(route('books.index'));
+    }
+
+    // ログインユーザは自身のブックを削除できる
+    public function test_user_can_delete_own_book()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create(['user_id' => $user->id]);
+
+        $response = $this->actingAs($user)->delete(route('books.destroy', $book));
+
+        $this->assertDatabaseMissing('books', ['id' => $book->id]);
+        $response->assertRedirect(route('books.index'));
+    }
 }
