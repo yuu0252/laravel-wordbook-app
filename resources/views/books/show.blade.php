@@ -13,5 +13,9 @@
     <article>
         <h2>{{ $book->title }}</h2>
         <p>{{ $book->description }}</p>
+
+        @if($book->user_id === Auth::id())
+            <a href="{{ route('books.edit', $book)}}">編集</a>
+        @endif
     </article>
 @endsection

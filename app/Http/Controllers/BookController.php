@@ -43,7 +43,7 @@ class BookController extends Controller
             return redirect()->route('books.index')->with('error_message', '不正なアクセスです。');
         }
 
-        return view('books.edit', compact($book));
+        return view('books.edit', compact('book'));
     }
 
     public function update(BookRequest $request, Book $book)

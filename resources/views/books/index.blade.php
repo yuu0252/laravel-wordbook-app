@@ -21,6 +21,7 @@
                 <h2>{{ $book->title }}</h2>
                 <p>{{ $book->description }}</p>
                 <a href="{{ route('books.show', $book) }}">詳細</a>
+                <a href="{{route('books.edit', $book)}}">編集</a>
             </article>
         @endforeach
     @else
