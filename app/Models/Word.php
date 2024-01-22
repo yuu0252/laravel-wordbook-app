@@ -15,7 +15,7 @@ class Word extends Model
         'memo'
     ];
 
-    public function Book()
+    public function book()
     {
         return $this->belongsTo(Book::class);
     }

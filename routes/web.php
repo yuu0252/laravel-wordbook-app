@@ -33,4 +33,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::resource('books', BookController::class)->middleware(['auth', 'verified']);
-Route::resource('books/{book}/words', WordController::class)->middleware(['auth', 'verified']);
+Route::resource('books.words', WordController::class)->middleware(['auth', 'verified']);

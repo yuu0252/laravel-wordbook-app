@@ -14,7 +14,7 @@
     @endif
 
     <div class="mb-2">
-        <a class="text-decoration-none" href="{{ route('words.create', $book) }}">新規作成</a>
+        <a class="text-decoration-none" href="{{ route('books.words.create', $book) }}">新規作成</a>
     </div>
 
     @if ($words->isNotEmpty())
@@ -26,9 +26,9 @@
                         <p class="card-text">{{ $word->japanese }}</p>
                         <div class="d-flex">
                             <a class="btn btn-outline-primary d-block me-1"
-                                href="{{ route('words.edit', ['book' => $book, 'word' => $word->id]) }}">編集</a>
+                                href="{{ route('books.words.edit', ['book' => $book, 'word' => $word->id]) }}">編集</a>
 
-                            <form action="{{ route('words.destroy', ['book' => $book, 'word' => $word->id]) }}"
+                            <form action="{{ route('books.words.destroy', ['book' => $book, 'word' => $word->id]) }}"
                                 method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
                                 @csrf
                                 @method('DELETE')

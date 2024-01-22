@@ -15,10 +15,10 @@
     @endif
 
     <div class="mb-2">
-        <a class="text-decoration-none" href="{{ route('words.index', $book) }}">&lt; 戻る</a>
+        <a class="text-decoration-none" href="{{ route('books.words.index', $book) }}">&lt; 戻る</a>
     </div>
 
-    <form class="row g-3" action="{{ route('words.store', $book) }}" method="POST">
+    <form class="row g-3" action="{{ route('books.words.store', $book) }}" method="POST">
         @csrf
         <div class="col-md-4">
             <label for="validationDefault01" class="form-label">英語</label>
