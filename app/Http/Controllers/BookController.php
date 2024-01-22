@@ -16,11 +16,6 @@ class BookController extends Controller
         return view('books.index', compact('books'));
     }
 
-    public function show(Book $book)
-    {
-        return view('books.show', compact('book'));
-    }
-
     public function create()
     {
         return view('books.create');
@@ -56,7 +51,7 @@ class BookController extends Controller
         $book->description = $request->input('description');
         $book->save();
 
-        return redirect()->route('books.show', $book)->with('flash_message', 'ブックを編集しました。');
+        return redirect()->route('books.index')->with('flash_message', 'ブックを編集しました。');
     }
 
     public function destroy(Book $book)

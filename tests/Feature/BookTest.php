@@ -35,29 +35,6 @@ class BookTest extends TestCase
         $response->assertSee($book->title);
     }
 
-    // ログインしていないユーザーはブック詳細ページにアクセスできない
-    public function test_guest_cannot_books_show()
-    {
-        $user = User::factory()->create();
-        $book = Book::factory()->create(['user_id' => $user->id]);
-
-        $response = $this->get(route('books.show', $book));
-
-        $response->assertRedirect(route('login'));
-    }
-
-    // ログインしているユーザーはブック詳細にアクセスできる
-    public function test_user_can_access_books_show()
-    {
-        $user = User::factory()->create();
-        $book = Book::factory()->create(['user_id' => $user->id]);
-
-        $response = $this->actingAs($user)->get(route('books.show', $book));
-
-        $response->assertStatus(200);
-        $response->assertSee($book->title);
-    }
-
     // ログインしていないユーザーはブック作成ページにアクセスできない
     public function test_guest_cannot_access_books_create()
     {
