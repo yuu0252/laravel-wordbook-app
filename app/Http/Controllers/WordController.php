@@ -66,4 +66,15 @@ class WordController extends Controller
 
     return redirect()->route('books.words.index', ['book' => $word->book_id])->with('flash_message', '単語を編集しました！');
   }
+
+  public function destroy(Book $book, Word $word)
+  {
+    if ($word->book->user_id !== Auth::id()) {
+      return redirect()->route('books.index')->with('error_message', '不正なアクセスです。');
+    }
+
+    $word->delete();
+
+    return redirect()->route('books.words.index', $book)->with('flash_message', 'ワードを削除しました。');
+  }
 }
