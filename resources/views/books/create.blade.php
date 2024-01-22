@@ -3,16 +3,20 @@
 @section('title', 'ブック作成')
 
 @section('content')
-    <h1>ブック作成</h1>
+    <h1 class="fs-2 my-3">ブック作成</h1>
     @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
-    <a href="{{ route('books.index') }}">&lt; 戻る</a>
+    <div class="mb-2">
+        <a class="text-decoration-none" href="{{ route('books.index') }}">&lt; 戻る</a>
+    </div>
 
     <form class="row g-3" action="{{ route('books.store') }}" method="POST">
         @csrf

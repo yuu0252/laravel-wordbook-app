@@ -3,32 +3,40 @@
 @section('title', 'ブック一覧')
 
 @section('content')
-    <h1>ブック一覧</h1>
+    <h1 class="fs-2 my-3">ブック一覧</h1>
 
     @if (session('flash_message'))
-        <p>{{ session('flash_message') }}</p>
+        <p class="text-success">{{ session('flash_message') }}</p>
     @endif
 
     @if (session('error_message'))
-        <p>{{ session('error_message') }}</p>
+        <p class="test-danger">{{ session('error_message') }}</p>
     @endif
 
-    <a href="{{ route('books.create') }}">新規作成</a>
+    <div class="mb-2">
+        <a class="text-decoration-none" href="{{ route('books.create') }}">新規作成</a>
+    </div>
 
     @if ($books->isNotEmpty())
         @foreach ($books as $book)
             <article>
-                <h2>{{ $book->title }}</h2>
-                <p>{{ $book->description }}</p>
-                <a href="{{ route('books.show', $book) }}">詳細</a>
-                <a href="{{ route('books.edit', $book) }}">編集</a>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h2 class="card-title fs-5">{{ $book->title }}</h2>
+                        <p class="card-text">{{ $book->description }}</p>
+                        <div class="d-flex">
+                            <a class="btn btn-outline-primary d-block me-1" href="{{ route('books.show', $book) }}">詳細</a>
+                            <a class="btn btn-outline-primary d-block me-1" href="{{ route('books.edit', $book) }}">編集</a>
 
-                <form action="{{ route('books.destroy', $book) }}" method="POST"
-                    onsubmit="return confirm('本当に削除してもよろしいですか？');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">削除</button>
-                </form>
+                            <form action="{{ route('books.destroy', $book) }}" method="POST"
+                                onsubmit="return confirm('本当に削除してもよろしいですか？');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger">削除</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </article>
         @endforeach
     @else
