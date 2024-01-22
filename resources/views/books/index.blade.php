@@ -22,7 +22,7 @@
             <article>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <a href="{{ route('words.index', $book) }}">
+                        <a class="text-decoration-none text-dark" href="{{ route('words.index', $book) }}">
                             <h2 class="card-title fs-5">{{ $book->title }}</h2>
                             <p class="card-text">{{ $book->description }}</p>
                             <div class="d-flex">

@@ -42,4 +42,24 @@ class WordController extends Controller
 
     return redirect()->route('words.index', $book)->with('flash_message', '新しい単語が追加されました！');
   }
+
+  public function edit(Book $book, Word $word)
+  {
+    if ($book->user_id !== Auth::id()) {
+      return redirect()->route('books.index')->with('error_message', '不正なアクセスです。');
+    }
+
+    return view('words.edit', compact('word'));
+  }
+
+  public function update(WordRequest $request, Word $word)
+  {
+    $word->english = $request->input('english');
+    $word->japanese = $request->input('japanese');
+    $word->memo = $request->input('memo');
+
+    $word->save();
+
+    return redirect()->route('words.index', ['book' => $word->book_id])->with('flash_message', '単語を編集しました！');
+  }
 }

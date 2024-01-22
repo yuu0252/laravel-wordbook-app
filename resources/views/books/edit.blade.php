@@ -31,7 +31,7 @@
         <div class="col-md-4">
             <label for="validationDefault02" class="form-label">このブックについて</label>
             <textarea type="text" class="form-control" id="validationDefault02" name="description"
-                value="{{ old('description', $book->description) }}" required></textarea>
+                value="{{ old('description', $book->description) }}"></textarea>
         </div>
         <div class="col-12">
             <button class="btn btn-primary" type="submit">更新</button>

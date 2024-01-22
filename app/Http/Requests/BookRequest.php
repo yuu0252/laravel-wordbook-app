@@ -23,7 +23,7 @@ class BookRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'nullable'
         ];
     }
 }
