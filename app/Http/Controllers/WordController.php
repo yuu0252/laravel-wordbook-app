@@ -23,6 +23,10 @@ class WordController extends Controller
 
   public function create(Book $book)
   {
+    if ($book->user_id !== Auth::id()) {
+      return redirect()->route('books.index');
+    }
+
     return view('words.create', compact('book'));
   }
 
