@@ -201,6 +201,7 @@ class WordTest extends TestCase
         $response->assertRedirect(route('books.index'));
     }
 
+    // ログインユーザは自身のワードを削除出来る
     public function test_user_can_update_own_word()
     {
         $user = User::factory()->create();
@@ -217,5 +218,45 @@ class WordTest extends TestCase
 
         $this->assertDatabaseHas('words', $new_word);
         $request->assertRedirect(route('books.words.index', $book));
+    }
+
+    // ログインしていないユーザはワードを削除できない
+    public function test_guest_cannot_delete_word()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create(['user_id' => $user->id]);
+        $word = Word::factory()->create(['book_id' => $book->id]);
+
+        $response = $this->delete(route('books.words.destroy', ['book' => $book->id, 'word' => $word->id]));
+
+        $this->assertDatabaseHas('words', ['id' => $word->id]);
+        $response->assertRedirect(route('login'));
+    }
+
+    // ログインユーザは他のユーザのワードを削除できない
+    public function test_user_cannot_delete_others_word()
+    {
+        $user = User::factory()->create();
+        $other_user = User::factory()->create();
+        $others_book = Book::factory()->create(['user_id' => $other_user->id]);
+        $others_word = Word::factory()->create(['book_id' => $others_book->id]);
+
+        $response = $this->actingAs($user)->delete(route('books.words.destroy', ['book' => $others_book->id, 'word' => $others_word->id]));
+
+        $this->assertDatabaseHas('words', ['id' => $others_word->id]);
+        $response->assertRedirect(route('books.index'));
+    }
+
+    // ログインユーザは自身のワードを削除できる
+    public function test_user_can_delete_own_word()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create(['user_id' => $user->id]);
+        $word = Word::factory()->create(['book_id' => $book->id]);
+
+        $response = $this->actingAs($user)->delete(route('books.words.destroy', ['book' => $book->id, 'word' => $word->id]));
+
+        $this->assertDatabaseMissing('words', ['id' => $word->id]);
+        $response->assertRedirect(route('books.words.index', $book));
     }
 }
